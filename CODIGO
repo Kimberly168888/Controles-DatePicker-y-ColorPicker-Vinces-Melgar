@@ -1,0 +1,62 @@
+import java.time.LocalDate;
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        // Controles
+        DatePicker fechaPicker = new DatePicker();
+        ColorPicker colorPicker = new ColorPicker();
+        Button confirmarButton = new Button("Confirmar");
+
+        // Etiquetas
+        Label fechaLabel = new Label("Selecciona una fecha:");
+        Label colorLabel = new Label("Selecciona un color:");
+        Label titulo = new Label("Controles DatePicker y ColorPicker");
+
+        // VBox para organizar los elementos
+        VBox contenedor = new VBox();
+        contenedor.setSpacing(10);
+        contenedor.setAlignment(Pos.CENTER); // Centrar elementos en VBox
+        contenedor.getChildren().addAll(titulo, fechaLabel, fechaPicker, colorLabel, colorPicker, confirmarButton);
+
+        // Manejo del evento "clic" del botÃ³n
+        confirmarButton.setOnAction(event -> {
+            LocalDate fechaSeleccionada = fechaPicker.getValue();
+            Color colorSeleccionado = colorPicker.getValue();
+
+            // Mostrar selecciones en la consola
+            System.out.println("Fecha seleccionada: " + fechaSeleccionada);
+            System.out.println("Color seleccionado: " + colorSeleccionado);
+
+            // Opcional: Mostrar selecciones en otro componente de la interfaz (por ejemplo, un Label)
+            Label resultadoLabel = new Label("Fecha: " + fechaSeleccionada + ", Color: " + colorSeleccionado);
+            resultadoLabel.setAlignment(Pos.CENTER); // Asegurar que el Label estÃ© centrado
+            contenedor.getChildren().add(resultadoLabel);
+        });
+
+        // StackPane para centrar el VBox
+        StackPane root = new StackPane(contenedor);
+        root.setAlignment(Pos.CENTER); // Asegurar que el VBox estÃ© centrado
+
+        Scene scene = new Scene(root, 400, 400);
+        primaryStage.setTitle("DatePicker y ColorPicker Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
